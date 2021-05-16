@@ -10,6 +10,8 @@ def addPageView(request):
 		item = request.POST.get('content', '').strip()
 		if len(item) > 0:
 			items.append(item)
+
+		items = items[-10:]
 		request.session['items'] = items
 
 	return render(request, 'pages/index.html', {'items': items})
@@ -30,8 +32,4 @@ def homePageView(request):
 
 	items = request.session.get('items', [])
 
-	items = []
-
-	request.session['items'] = items
-	request.session.modified = True
 	return render(request, 'pages/index.html', {'items': items})
