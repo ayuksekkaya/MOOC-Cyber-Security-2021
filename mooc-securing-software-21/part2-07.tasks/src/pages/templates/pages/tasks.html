@@ -24,11 +24,27 @@
             var url = null;
 
             function loadTasks() {
-                // Write loading code here 
-            }
-		</script>
+                // Write loading code here
+                var xmlHttp = new XMLHttpRequest();
 
-        <script inline="javascript">
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    var response = JSON.parse(xmlHttp.responseText);
+
+                    for (const v of response.tasks){
+                        addTaskToList(v);
+                    }
+                }
+            }
+
+
+                xmlHttp.open("GET", "tasks", true);
+                xmlHttp.send(null);
+
+                }
+
+
+
             function addTask() {
                 var name = document.querySelector("#name").value;
                 if (!name) {
