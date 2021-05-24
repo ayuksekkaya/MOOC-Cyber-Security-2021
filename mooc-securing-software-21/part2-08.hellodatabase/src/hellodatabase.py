@@ -11,6 +11,10 @@ def read_database(conn):
 
 
 	# write code here
+	for row in conn.execute('SELECT * FROM AGENT ORDER BY id'):
+		agents.append(row)
+
+
 
 	return agents
 
