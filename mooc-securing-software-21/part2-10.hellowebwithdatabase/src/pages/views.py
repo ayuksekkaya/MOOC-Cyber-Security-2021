@@ -7,5 +7,9 @@ from .models import Message
 def homePageView(request):
 	content = 'Hello Web!';
 
-		
+	if request.method == 'GET':
+		id1 = request.GET.get('id', '0').strip()
+		content = Message.objects.get(pk=id1).content
+
 	return HttpResponse(content)
+
