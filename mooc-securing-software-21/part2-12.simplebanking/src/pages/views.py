@@ -7,12 +7,16 @@ from django.db.models import Q
 import json
 
 
-
 @login_required
 def addView(request):
-	return redirect('/')
+    new_account = Account.objects.create(owner=request.user, iban=(request.POST.get("iban", "0")))
+    new_account.save()
+    return redirect('/')
 
 
 @login_required
 def homePageView(request):
-	return render(request, 'pages/index.html')
+    current_user = request.user
+    accounts = Account.objects.filter(owner=current_user)
+
+    return render(request, 'pages/index.html', {'accounts': accounts})
